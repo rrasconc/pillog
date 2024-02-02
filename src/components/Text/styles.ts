@@ -5,7 +5,6 @@ export const stylesheet = createStyleSheet((theme) => ({
   text: {
     color: theme.colors.secondaryText,
     fontSize: scale(14),
-    fontWeight: 'bold',
   },
   primary: {
     color: theme.colors.primaryText,

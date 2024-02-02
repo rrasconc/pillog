@@ -7,18 +7,14 @@ describe('Home screen', () => {
   })
 
   it('should display header title correctly', () => {
-    expect(screen.getByText('Mis recetas')).toBeOnTheScreen()
+    expect(screen.getByText('My pills')).toBeOnTheScreen()
   })
 
   it('should display description', () => {
-    expect(screen.getByText('Administra y agrega nuevas recetas médicas')).toBeOnTheScreen()
+    expect(screen.getByText('Add and log your pills')).toBeOnTheScreen()
   })
 
-  it('should display notifications button', () => {
-    expect(screen.getByTestId('notificationsBtn')).toBeOnTheScreen()
-  })
-
-  it('should display an add button', () => {
-    expect(screen.getByText('Nueva receta')).toBeOnTheScreen()
+  it('should display settings button', () => {
+    expect(screen.getByTestId('settingsBtn')).toBeOnTheScreen()
   })
 })
