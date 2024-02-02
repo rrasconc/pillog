@@ -6,15 +6,11 @@ describe('Home screen', () => {
     renderRouter('src/app/')
   })
 
-  it('should display header title correctly', () => {
-    expect(screen.getByText('My pills')).toBeOnTheScreen()
-  })
-
   it('should display description', () => {
-    expect(screen.getByText('Add and log your pills')).toBeOnTheScreen()
+    expect(screen.getByText('Select the pills you want to log')).toBeOnTheScreen()
   })
 
-  it('should display settings button', () => {
-    expect(screen.getByTestId('settingsBtn')).toBeOnTheScreen()
+  it('should display add button', () => {
+    expect(screen.getByTestId('addBtn')).toBeOnTheScreen()
   })
 })
