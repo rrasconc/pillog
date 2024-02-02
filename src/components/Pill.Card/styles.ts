@@ -11,5 +11,6 @@ export const stylesheet = createStyleSheet((theme) => ({
   },
   check: {
     marginLeft: 'auto',
+    color: theme.colors.success,
   },
 }))
