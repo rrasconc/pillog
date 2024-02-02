@@ -1,8 +1,9 @@
 import { Stack } from 'expo-router'
 import { useState } from 'react'
 import { FlatList, TouchableOpacity, View } from 'react-native'
-import { scale } from 'react-native-size-matters'
-import { createStyleSheet, useStyles } from 'react-native-unistyles'
+import { useStyles } from 'react-native-unistyles'
+
+import { stylesheet } from './styles'
 
 import { Icon } from '@/components/Icon'
 import { PillCard } from '@/components/Pill.Card'
@@ -22,7 +23,7 @@ export default function Page() {
   }
 
   const headerRight = () => (
-    <TouchableOpacity testID="settingsBtn" style={styles.iconContainer}>
+    <TouchableOpacity testID="addBtn" style={styles.iconContainer}>
       <Icon name="add" />
     </TouchableOpacity>
   )
@@ -51,28 +52,3 @@ export default function Page() {
     </View>
   )
 }
-
-const stylesheet = createStyleSheet((theme) => ({
-  container: {
-    backgroundColor: theme.colors.background,
-    paddingHorizontal: theme.spacing.sm,
-    paddingBottom: theme.spacing.lg * 3,
-    gap: theme.spacing.sm,
-    flex: 1,
-  },
-  headerTitleContainer: {
-    flex: 1,
-    flexDirection: 'row',
-  },
-  iconContainer: {
-    height: scale(30),
-    width: scale(30),
-    borderRadius: scale(15),
-    backgroundColor: theme.colors.secondary,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  list: {
-    gap: theme.spacing.sm,
-  },
-}))
