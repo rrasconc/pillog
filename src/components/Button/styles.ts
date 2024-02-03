@@ -11,4 +11,7 @@ export const stylesheet = createStyleSheet((theme) => ({
   secondary: {
     backgroundColor: theme.colors.secondary,
   },
+  disabled: {
+    opacity: 0.2,
+  },
 }))
