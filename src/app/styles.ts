@@ -13,13 +13,8 @@ export const stylesheet = createStyleSheet((theme) => ({
     flex: 1,
     flexDirection: 'row',
   },
-  iconContainer: {
-    height: scale(30),
-    width: scale(30),
-    borderRadius: scale(15),
-    backgroundColor: theme.colors.secondary,
-    justifyContent: 'center',
-    alignItems: 'center',
+  headerIcon: {
+    color: theme.colors.primary,
   },
   list: {
     gap: theme.spacing.sm,
