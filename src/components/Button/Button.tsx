@@ -5,11 +5,11 @@ import { stylesheet } from './styles'
 
 interface ButtonProps extends TouchableOpacityProps {}
 
-function Button({ style: styleProp, ...otherProps }: ButtonProps) {
+function Button({ style: styleProp, disabled, ...otherProps }: ButtonProps) {
   const { styles } = useStyles(stylesheet)
-  const mergedStyles = [styles.container, styleProp]
+  const mergedStyles = [styles.container, styleProp, disabled && styles.disabled]
 
-  return <TouchableOpacity style={mergedStyles} {...otherProps} />
+  return <TouchableOpacity style={mergedStyles} disabled={disabled} {...otherProps} />
 }
 
 function Secondary({ style: styleProp, ...otherProps }: ButtonProps) {
