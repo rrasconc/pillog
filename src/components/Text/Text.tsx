@@ -1,4 +1,9 @@
-import { Text as DefaultText, type TextProps as DefaultTextProps } from 'react-native'
+import {
+  Text as DefaultText,
+  TextInputProps,
+  type TextProps as DefaultTextProps,
+  TextInput,
+} from 'react-native'
 import { useStyles } from 'react-native-unistyles'
 
 import { stylesheet } from './styles'
@@ -26,6 +31,14 @@ function H1({ style: styleProp, ...otherProps }: TextProps) {
   return <Primary style={mergedStyles} {...otherProps} />
 }
 
+function Input({ style: styleProp, ...otherProps }: TextInputProps) {
+  const { styles } = useStyles(stylesheet)
+  const mergedStyles = [styles.text, styles.input, styleProp]
+
+  return <TextInput style={mergedStyles} {...otherProps} />
+}
+
 Text.H1 = H1
 Text.Primary = Primary
+Text.Input = Input
 export default Text
