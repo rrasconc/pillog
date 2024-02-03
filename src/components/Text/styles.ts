@@ -13,4 +13,11 @@ export const stylesheet = createStyleSheet((theme) => ({
     fontSize: scale(22),
     fontWeight: 'bold',
   },
+  input: {
+    paddingVertical: theme.spacing.sm,
+    paddingHorizontal: theme.spacing.xs,
+    borderRadius: theme.spacing.xs,
+    borderWidth: 1,
+    borderColor: theme.colors.border,
+  },
 }))
