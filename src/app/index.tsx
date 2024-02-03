@@ -1,19 +1,22 @@
-import { Stack } from 'expo-router'
+import { Stack, useRouter } from 'expo-router'
 import { useState } from 'react'
 import { FlatList, TouchableOpacity, View } from 'react-native'
+import { scale } from 'react-native-size-matters'
 import { useStyles } from 'react-native-unistyles'
 
 import { stylesheet } from './styles'
 
 import { Icon } from '@/components/Icon'
 import { PillCard } from '@/components/Pill.Card'
-import { PillSwiper } from '@/components/PillSwiper'
+import { PillSwiper } from '@/components/Pill.Swiper'
 import { Text } from '@/components/Text'
 import { usePills } from '@/hooks/usePills'
 
 export default function Page() {
   const { styles } = useStyles(stylesheet)
-  const { pills, addPill, removePill, updatePill } = usePills()
+  const { pills } = usePills()
+  const router = useRouter()
+
   const [selectedPills, setSelectedPills] = useState<string[]>([])
 
   const handlePressPill = (pressedPillId: string) => {
@@ -23,12 +26,13 @@ export default function Page() {
     return setSelectedPills([...selectedPills, pressedPillId])
   }
 
+  const handlePressAdd = () => {
+    router.push('new_pill')
+  }
+
   const headerRight = () => (
-    <TouchableOpacity
-      onPress={() => addPill({ name: 'Paracetamol', dose: 500, doseType: 'mg' })}
-      testID="addBtn"
-      style={styles.iconContainer}>
-      <Icon name="add" />
+    <TouchableOpacity onPress={handlePressAdd} testID="addBtn">
+      <Icon name="add-circle-outline" size={scale(24)} style={styles.headerIcon} />
     </TouchableOpacity>
   )
 

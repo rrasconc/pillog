@@ -10,8 +10,15 @@ export default function Layout() {
       <Stack
         screenOptions={{
           headerShadowVisible: false,
-        }}
-      />
+        }}>
+        <Stack.Screen
+          name="new_pill"
+          options={{
+            title: 'Add a pill',
+            presentation: 'modal',
+          }}
+        />
+      </Stack>
     </RealmProvider>
   )
 }
