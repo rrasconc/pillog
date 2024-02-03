@@ -5,7 +5,7 @@ export const lightTheme = {
     primaryText: '#0F0F0F',
     secondaryText: '#9CA2B1',
     background: '#ffffff',
-    primary: '#19B7A9',
+    primary: '#00AFFA',
     secondary: '#F2F4F7',
     border: '#EDEDED',
     success: '#19B7A9',
