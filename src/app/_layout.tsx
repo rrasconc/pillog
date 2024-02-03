@@ -1,3 +1,4 @@
+import 'react-native-get-random-values'
 import '@/config/unistyle'
 import { RealmProvider } from '@realm/react'
 import { Stack } from 'expo-router'
