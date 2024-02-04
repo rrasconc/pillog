@@ -11,7 +11,7 @@ export const stylesheet = createStyleSheet((theme) => ({
   },
   titleContainer: {
     padding: theme.spacing.xs,
-    borderBottomWidth: 2,
+    borderBottomWidth: 1,
     borderBottomColor: theme.colors.border,
     justifyContent: 'center',
     alignItems: 'center',
