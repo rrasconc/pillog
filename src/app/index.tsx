@@ -1,11 +1,13 @@
 import { Stack, useRouter } from 'expo-router'
-import { useState } from 'react'
+import { useMemo, useState } from 'react'
 import { FlatList, TouchableOpacity, View } from 'react-native'
 import { scale } from 'react-native-size-matters'
 import { useStyles } from 'react-native-unistyles'
 
 import { stylesheet } from './styles'
 
+import { BottomSheet } from '@/components/Bottom.Sheet'
+import { Button } from '@/components/Button'
 import { Icon } from '@/components/Icon'
 import { PillCard } from '@/components/Pill.Card'
 import { PillSwiper } from '@/components/Pill.Swiper'
@@ -14,10 +16,17 @@ import { usePills } from '@/hooks/usePills'
 
 export default function Page() {
   const { styles } = useStyles(stylesheet)
-  const { pills } = usePills()
+  const { pills, removePill } = usePills()
   const router = useRouter()
 
   const [selectedPills, setSelectedPills] = useState<string[]>([])
+  const [selectedPillId, setSelectedPillId] = useState<string>('')
+  const [showConfirmDelete, setShowConfirmDelete] = useState<boolean>(false)
+
+  const selectedPill = useMemo(
+    () => pills.find((item) => item._id.toString() === selectedPillId),
+    [pills, selectedPillId],
+  )
 
   const handlePressPill = (pressedPillId: string) => {
     if (selectedPills.includes(pressedPillId)) {
@@ -30,6 +39,18 @@ export default function Page() {
     router.push('new_pill')
   }
 
+  const handlePressDelete = () => setShowConfirmDelete(true)
+
+  const handlePressConfirmDelete = () => {
+    setSelectedPillId((prev) => {
+      removePill(prev)
+      return ''
+    })
+    setShowConfirmDelete(false)
+  }
+
+  const handleBottomSheetDismiss = () => setSelectedPillId('')
+
   const headerRight = () => (
     <TouchableOpacity onPress={handlePressAdd} testID="addBtn">
       <Icon name="add-circle-outline" size={scale(24)} style={styles.headerIcon} />
@@ -38,7 +59,15 @@ export default function Page() {
 
   return (
     <View style={styles.container}>
-      <Stack.Screen options={{ title: 'My pills', headerRight }} />
+      <Stack.Screen
+        options={{
+          title: 'My pills',
+          headerRight,
+          headerStyle: selectedPill && {
+            backgroundColor: 'rgba(0,0,0,0.1)',
+          },
+        }}
+      />
       <View>
         <Text>Select the pills you want to log</Text>
       </View>
@@ -48,6 +77,7 @@ export default function Page() {
         contentContainerStyle={styles.list}
         renderItem={({ item }) => (
           <PillCard
+            onLongPress={() => setSelectedPillId(item._id.toString())}
             onPress={() => handlePressPill(item._id.toString())}
             selected={selectedPills.includes(item._id.toString())}
             name={item.name}
@@ -57,6 +87,24 @@ export default function Page() {
         )}
       />
       <PillSwiper />
+
+      {selectedPill && (
+        <BottomSheet
+          snapPoints={['35']}
+          title={`${selectedPill.name} (${selectedPill.dose} ${selectedPill.doseType})`}
+          onDismiss={handleBottomSheetDismiss}>
+          {!showConfirmDelete && (
+            <Button.Secondary onPress={handlePressDelete}>
+              <Text style={styles.deleteBtn}>Delete</Text>
+            </Button.Secondary>
+          )}
+          {showConfirmDelete && (
+            <Button.Secondary onPress={handlePressConfirmDelete}>
+              <Text style={styles.deleteBtn}>Confirm delete</Text>
+            </Button.Secondary>
+          )}
+        </BottomSheet>
+      )}
     </View>
   )
 }

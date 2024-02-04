@@ -1,4 +1,3 @@
-import { scale } from 'react-native-size-matters'
 import { createStyleSheet } from 'react-native-unistyles'
 
 export const stylesheet = createStyleSheet((theme) => ({
@@ -19,4 +18,5 @@ export const stylesheet = createStyleSheet((theme) => ({
   list: {
     gap: theme.spacing.sm,
   },
+  deleteBtn: { color: theme.colors.danger },
 }))
