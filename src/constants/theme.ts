@@ -9,7 +9,7 @@ export const lightTheme = {
     secondary: '#F2F4F7',
     border: '#EDEDED',
     success: '#19B7A9',
-    transparentSuccess: '#E8F7F6',
+    danger: '#F90707',
   },
   spacing: {
     xs: scale(10),
