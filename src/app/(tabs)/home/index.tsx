@@ -1,7 +1,7 @@
+import { BottomSheetModal } from '@gorhom/bottom-sheet'
 import { Stack, useRouter } from 'expo-router'
-import { useMemo, useState } from 'react'
+import { useMemo, useRef, useState } from 'react'
 import { FlatList, TouchableOpacity, View } from 'react-native'
-import { scale } from 'react-native-size-matters'
 import { useStyles } from 'react-native-unistyles'
 
 import { stylesheet } from './styles'
@@ -14,14 +14,14 @@ import { PillSwiper } from '@/components/Pill.Swiper'
 import { Text } from '@/components/Text'
 import { usePills } from '@/hooks/usePills'
 
-export default function Page() {
+export default function HomePage() {
   const { styles } = useStyles(stylesheet)
   const { pills, removePill } = usePills()
   const router = useRouter()
 
   const [selectedPills, setSelectedPills] = useState<string[]>([])
   const [selectedPillId, setSelectedPillId] = useState<string>('')
-  const [showConfirmDelete, setShowConfirmDelete] = useState<boolean>(false)
+  const bottomSheetModalRef = useRef<BottomSheetModal>(null)
 
   const selectedPill = useMemo(
     () => pills.find((item) => item._id.toString() === selectedPillId),
@@ -35,25 +35,27 @@ export default function Page() {
     return setSelectedPills([...selectedPills, pressedPillId])
   }
 
-  const handlePressAdd = () => {
-    router.push('new_pill')
+  const handleLongPressPill = (pillId: string) => {
+    setSelectedPillId(pillId)
+    bottomSheetModalRef.current?.present()
   }
 
-  const handlePressDelete = () => setShowConfirmDelete(true)
+  const handlePressAdd = () => {
+    router.push('home/new_pill')
+  }
 
-  const handlePressConfirmDelete = () => {
+  const handlePressDelete = () => {
     setSelectedPillId((prev) => {
       removePill(prev)
       return ''
     })
-    setShowConfirmDelete(false)
   }
 
   const handleBottomSheetDismiss = () => setSelectedPillId('')
 
   const headerRight = () => (
     <TouchableOpacity onPress={handlePressAdd} testID="addBtn">
-      <Icon name="add-circle-outline" size={scale(24)} style={styles.headerIcon} />
+      <Icon name="add-circle-outline" style={styles.headerIcon} />
     </TouchableOpacity>
   )
 
@@ -61,11 +63,7 @@ export default function Page() {
     <View style={styles.container}>
       <Stack.Screen
         options={{
-          title: 'My pills',
           headerRight,
-          headerStyle: selectedPill && {
-            backgroundColor: 'rgba(0,0,0,0.1)',
-          },
         }}
       />
       <View>
@@ -77,7 +75,7 @@ export default function Page() {
         contentContainerStyle={styles.list}
         renderItem={({ item }) => (
           <PillCard
-            onLongPress={() => setSelectedPillId(item._id.toString())}
+            onLongPress={() => handleLongPressPill(item._id.toString())}
             onPress={() => handlePressPill(item._id.toString())}
             selected={selectedPills.includes(item._id.toString())}
             name={item.name}
@@ -90,19 +88,13 @@ export default function Page() {
 
       {selectedPill && (
         <BottomSheet
+          ref={bottomSheetModalRef}
           snapPoints={['35']}
           title={`${selectedPill.name} (${selectedPill.dose} ${selectedPill.doseType})`}
           onDismiss={handleBottomSheetDismiss}>
-          {!showConfirmDelete && (
-            <Button.Secondary onPress={handlePressDelete}>
-              <Text style={styles.deleteBtn}>Delete</Text>
-            </Button.Secondary>
-          )}
-          {showConfirmDelete && (
-            <Button.Secondary onPress={handlePressConfirmDelete}>
-              <Text style={styles.deleteBtn}>Confirm delete</Text>
-            </Button.Secondary>
-          )}
+          <Button.Secondary onPress={handlePressDelete}>
+            <Text style={styles.deleteBtn}>Delete</Text>
+          </Button.Secondary>
         </BottomSheet>
       )}
     </View>

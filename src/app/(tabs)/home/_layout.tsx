@@ -13,6 +13,13 @@ export default function Layout() {
           headerShadowVisible: false,
         }}>
         <Stack.Screen
+          name="index"
+          options={{
+            title: 'My pills',
+            presentation: 'modal',
+          }}
+        />
+        <Stack.Screen
           name="new_pill"
           options={{
             title: 'Add a pill',
