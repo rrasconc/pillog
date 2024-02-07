@@ -1,5 +1,6 @@
 import { BottomSheetModal } from '@gorhom/bottom-sheet'
 import { Stack, useRouter } from 'expo-router'
+import moment from 'moment'
 import { useMemo, useRef, useState } from 'react'
 import { FlatList, TouchableOpacity, View } from 'react-native'
 import { useStyles } from 'react-native-unistyles'
@@ -12,11 +13,13 @@ import { Icon } from '@/components/Icon'
 import { PillCard } from '@/components/Pill.Card'
 import { PillSwiper } from '@/components/Pill.Swiper'
 import { Text } from '@/components/Text'
+import { useLogs } from '@/hooks/useLogs'
 import { usePills } from '@/hooks/usePills'
 
 export default function HomePage() {
   const { styles } = useStyles(stylesheet)
   const { pills, removePill } = usePills()
+  const { addLog } = useLogs()
   const router = useRouter()
 
   const [selectedPills, setSelectedPills] = useState<string[]>([])
@@ -45,13 +48,26 @@ export default function HomePage() {
   }
 
   const handlePressDelete = () => {
+    handleBottomSheetDismiss()
     setSelectedPillId((prev) => {
       removePill(prev)
       return ''
     })
   }
 
-  const handleBottomSheetDismiss = () => setSelectedPillId('')
+  const handleBottomSheetDismiss = () => bottomSheetModalRef.current?.close()
+
+  const handleSwipe = () => {
+    const pillsToLog = pills.filter((pill) => selectedPills.includes(pill._id.toString()))
+
+    const logsToAdd = pillsToLog.map((pill) => ({
+      title: `Took ${pill.name} (${pill.dose} ${pill.doseType})`,
+      datetime: moment().toDate(),
+    }))
+
+    logsToAdd.forEach(addLog)
+    setSelectedPills([])
+  }
 
   const headerRight = () => (
     <TouchableOpacity onPress={handlePressAdd} testID="addBtn">
@@ -84,19 +100,19 @@ export default function HomePage() {
           />
         )}
       />
-      <PillSwiper />
+      <PillSwiper onSwipe={handleSwipe} />
 
-      {selectedPill && (
-        <BottomSheet
-          ref={bottomSheetModalRef}
-          snapPoints={['35']}
-          title={`${selectedPill.name} (${selectedPill.dose} ${selectedPill.doseType})`}
-          onDismiss={handleBottomSheetDismiss}>
-          <Button.Secondary onPress={handlePressDelete}>
-            <Text style={styles.deleteBtn}>Delete</Text>
-          </Button.Secondary>
-        </BottomSheet>
-      )}
+      <BottomSheet
+        ref={bottomSheetModalRef}
+        snapPoints={['35']}
+        title={
+          selectedPill ? `${selectedPill.name} (${selectedPill.dose} ${selectedPill.doseType})` : ''
+        }
+        onDismiss={handleBottomSheetDismiss}>
+        <Button.Secondary onPress={handlePressDelete}>
+          <Text style={styles.deleteBtn}>Delete</Text>
+        </Button.Secondary>
+      </BottomSheet>
     </View>
   )
 }

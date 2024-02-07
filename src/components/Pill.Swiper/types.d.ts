@@ -1,0 +1,3 @@
+interface PillSwiperProps {
+  onSwipe?: () => void
+}

@@ -19,6 +19,7 @@ export const stylesheet = createStyleSheet((theme) => ({
   contentContainer: {
     flex: 1,
     padding: theme.spacing.sm,
+    gap: theme.spacing.sm,
   },
   handleIndicator: {
     backgroundColor: theme.colors.border,
