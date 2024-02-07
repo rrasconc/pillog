@@ -44,7 +44,7 @@ export default function LogsPage() {
         contentContainerStyle={styles.contentContainer}
         keyExtractor={(item) => item._id.toString()}
         data={logs}
-        renderItem={({ item }) => <LogItem title={item.title} />}
+        renderItem={({ item }) => <LogItem title={item.title} datetime={item.datetime} />}
         ListEmptyComponent={<Text>You don't have any logs yet</Text>}
       />
 

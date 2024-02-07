@@ -1,19 +1,19 @@
 import { useQuery, useRealm } from '@realm/react'
+import moment from 'moment'
 import { BSON } from 'realm'
 
-import { Log } from '@/constants/types'
 import { LogSchema } from '@/utils/models'
 
 export const useLogs = () => {
   const realm = useRealm()
   const logs = useQuery(LogSchema)
 
-  const addLog = ({ title, datetime }: Log) => {
+  const addLog = ({ title }: { title: string }) => {
     realm.write(() => {
       realm.create(LogSchema, {
         _id: new BSON.UUID(),
         title,
-        datetime,
+        datetime: moment().toDate(),
       })
     })
   }
