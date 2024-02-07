@@ -11,8 +11,3 @@ export interface PillFormValues {
   dose: string
   doseType: DoseType
 }
-
-interface Log {
-  title: string
-  datetime: Date
-}

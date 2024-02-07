@@ -1,6 +1,5 @@
 import { BottomSheetModal } from '@gorhom/bottom-sheet'
 import { Stack, useRouter } from 'expo-router'
-import moment from 'moment'
 import { useMemo, useRef, useState } from 'react'
 import { FlatList, TouchableOpacity, View } from 'react-native'
 import { useStyles } from 'react-native-unistyles'
@@ -62,7 +61,6 @@ export default function HomePage() {
 
     const logsToAdd = pillsToLog.map((pill) => ({
       title: `Took ${pill.name} (${pill.dose} ${pill.doseType})`,
-      datetime: moment().toDate(),
     }))
 
     logsToAdd.forEach(addLog)
