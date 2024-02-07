@@ -19,3 +19,19 @@ export class PillSchema extends Object<PillSchema> {
     primaryKey: '_id',
   }
 }
+
+export class LogSchema extends Object<LogSchema> {
+  _id!: BSON.UUID
+  title!: string
+  datetime!: Date
+
+  static schema: ObjectSchema = {
+    name: 'LogSchema',
+    properties: {
+      _id: 'uuid',
+      title: { type: 'string', indexed: true },
+      datetime: 'date',
+    },
+    primaryKey: '_id',
+  }
+}
