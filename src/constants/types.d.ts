@@ -19,10 +19,10 @@ export type AppThemes = {
   dark: typeof darkTheme
 }
 
-type ThemeItem = keyof AppThemes | 'adaptive'
+type ThemeItem = keyof AppThemes
 
 interface SettingThemeItem {
   label: string
-  theme: ThemeItem
+  theme: ThemeItem | 'adaptive'
   disabled?: boolean
 }
