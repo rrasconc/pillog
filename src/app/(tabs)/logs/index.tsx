@@ -2,9 +2,8 @@ import { BottomSheetModal } from '@gorhom/bottom-sheet'
 import { Stack } from 'expo-router'
 import { useRef } from 'react'
 import { View, FlatList, TouchableOpacity } from 'react-native'
-import { useStyles } from 'react-native-unistyles'
-
-import { stylesheet } from './styles'
+import { scale } from 'react-native-size-matters'
+import { useStyles, createStyleSheet } from 'react-native-unistyles'
 
 import { BottomSheet } from '@/components/Bottom.Sheet'
 import { Button } from '@/components/Button'
@@ -68,3 +67,25 @@ export default function LogsPage() {
     </View>
   )
 }
+
+export const stylesheet = createStyleSheet((theme) => ({
+  container: {
+    flex: 1,
+    backgroundColor: theme.colors.background,
+    padding: theme.spacing.sm,
+  },
+  contentContainer: {
+    gap: theme.spacing.sm,
+  },
+  headerIcon: {
+    color: theme.colors.danger,
+    fontSize: scale(20),
+  },
+  dangerText: {
+    color: theme.colors.danger,
+  },
+  cancelBtn: {
+    backgroundColor: theme.colors.background,
+    padding: theme.spacing.xs,
+  },
+}))
