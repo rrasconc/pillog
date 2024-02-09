@@ -11,12 +11,9 @@ export default function TabsLayout() {
     <Tabs
       screenOptions={{
         headerShown: false,
-        headerStyle: {
-          backgroundColor: theme.colors.background,
-        },
         tabBarStyle: {
-          height: verticalScale(70),
           backgroundColor: theme.colors.background,
+          borderColor: theme.colors.border,
         },
         tabBarItemStyle: {
           height: verticalScale(50),
