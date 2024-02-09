@@ -1,3 +1,5 @@
+import { darkTheme, lightTheme } from './theme'
+
 export type DoseType = 'mg' | 'ml'
 
 export interface Pill {
@@ -10,4 +12,17 @@ export interface PillFormValues {
   name: string
   dose: string
   doseType: DoseType
+}
+
+export type AppThemes = {
+  light: typeof lightTheme
+  dark: typeof darkTheme
+}
+
+type ThemeItem = keyof AppThemes | 'adaptive'
+
+interface SettingThemeItem {
+  label: string
+  theme: ThemeItem
+  disabled?: boolean
 }
