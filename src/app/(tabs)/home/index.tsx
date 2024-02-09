@@ -1,10 +1,8 @@
 import { BottomSheetModal } from '@gorhom/bottom-sheet'
-import { Stack, useRouter } from 'expo-router'
+import { Link, Stack } from 'expo-router'
 import { useMemo, useRef, useState } from 'react'
 import { FlatList, TouchableOpacity, View } from 'react-native'
-import { useStyles } from 'react-native-unistyles'
-
-import { stylesheet } from './styles'
+import { useStyles, createStyleSheet } from 'react-native-unistyles'
 
 import { BottomSheet } from '@/components/Bottom.Sheet'
 import { Button } from '@/components/Button'
@@ -19,7 +17,6 @@ export default function HomePage() {
   const { styles } = useStyles(stylesheet)
   const { pills, removePill } = usePills()
   const { addLog } = useLogs()
-  const router = useRouter()
 
   const [selectedPills, setSelectedPills] = useState<string[]>([])
   const [selectedPillId, setSelectedPillId] = useState<string>('')
@@ -40,10 +37,6 @@ export default function HomePage() {
   const handleLongPressPill = (pillId: string) => {
     setSelectedPillId(pillId)
     bottomSheetModalRef.current?.present()
-  }
-
-  const handlePressAdd = () => {
-    router.push('home/new_pill')
   }
 
   const handlePressDelete = () => {
@@ -68,9 +61,11 @@ export default function HomePage() {
   }
 
   const headerRight = () => (
-    <TouchableOpacity onPress={handlePressAdd} testID="addBtn">
-      <Icon name="add-circle-outline" style={styles.headerIcon} />
-    </TouchableOpacity>
+    <Link href="home/new_pill" testID="addBtn" asChild>
+      <TouchableOpacity testID="addBtn">
+        <Icon name="add-circle-outline" style={styles.headerIcon} />
+      </TouchableOpacity>
+    </Link>
   )
 
   return (
@@ -114,3 +109,24 @@ export default function HomePage() {
     </View>
   )
 }
+
+export const stylesheet = createStyleSheet((theme) => ({
+  container: {
+    backgroundColor: theme.colors.background,
+    paddingHorizontal: theme.spacing.sm,
+    paddingBottom: theme.spacing.lg * 3,
+    gap: theme.spacing.sm,
+    flex: 1,
+  },
+  headerTitleContainer: {
+    flex: 1,
+    flexDirection: 'row',
+  },
+  headerIcon: {
+    color: theme.colors.primary,
+  },
+  list: {
+    gap: theme.spacing.sm,
+  },
+  deleteBtn: { color: theme.colors.danger },
+}))
