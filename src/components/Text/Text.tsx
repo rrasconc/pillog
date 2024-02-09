@@ -32,10 +32,17 @@ function H1({ style: styleProp, ...otherProps }: TextProps) {
 }
 
 function Input({ style: styleProp, ...otherProps }: TextInputProps) {
-  const { styles } = useStyles(stylesheet)
+  const { styles, theme } = useStyles(stylesheet)
   const mergedStyles = [styles.text, styles.input, styleProp]
 
-  return <TextInput style={mergedStyles} {...otherProps} />
+  return (
+    <TextInput
+      selectionColor={theme.colors.transparentPrimary}
+      placeholderTextColor={theme.colors.secondaryText}
+      style={mergedStyles}
+      {...otherProps}
+    />
+  )
 }
 
 Text.H1 = H1

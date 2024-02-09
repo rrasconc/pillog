@@ -1,13 +1,9 @@
-import { StyleSheet } from 'react-native'
 import { createStyleSheet } from 'react-native-unistyles'
 
 export const stylesheet = createStyleSheet((theme) => ({
   container: {
     flex: 1,
-  },
-  mask: {
-    backgroundColor: 'rgba(0,0,0,0.1)',
-    ...StyleSheet.absoluteFillObject,
+    backgroundColor: theme.colors.background,
   },
   titleContainer: {
     padding: theme.spacing.xs,
@@ -23,5 +19,8 @@ export const stylesheet = createStyleSheet((theme) => ({
   },
   handleIndicator: {
     backgroundColor: theme.colors.border,
+  },
+  handleContainer: {
+    backgroundColor: theme.colors.background,
   },
 }))
