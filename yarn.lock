@@ -8437,6 +8437,11 @@ react-native-get-random-values@^1.10.0:
   dependencies:
     fast-base64-decode "^1.0.0"
 
+react-native-mmkv@^2.11.0:
+  version "2.11.0"
+  resolved "https://registry.yarnpkg.com/react-native-mmkv/-/react-native-mmkv-2.11.0.tgz#51b9985f6a5c09fe9c16d8c1861cc2901856ace1"
+  integrity sha512-28PdUHjZJmAw3q+8zJDAAdohnZMpDC7WgRUJxACOMkcmJeqS3u5cKS/lSq2bhf1CvaeIiHYHUWiyatUjMRCDQQ==
+
 react-native-reanimated@^3.6.1:
   version "3.6.1"
   resolved "https://registry.yarnpkg.com/react-native-reanimated/-/react-native-reanimated-3.6.1.tgz#5add41efafac6d0befd9786e752e7f26dbe903b7"

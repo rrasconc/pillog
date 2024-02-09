@@ -6,6 +6,7 @@ import { SettingItem } from '@/components/Setting.Item.tsx'
 import { Text } from '@/components/Text'
 import { appInfo } from '@/constants/app.info'
 import type { SettingThemeItem, ThemeItem } from '@/constants/types'
+import { useStoredAppTheme } from '@/hooks/useAppTheme'
 
 const THEMES: SettingThemeItem[] = [
   {
@@ -25,12 +26,14 @@ const THEMES: SettingThemeItem[] = [
 
 export default function SettingsPage() {
   const { styles } = useStyles(stylesheet)
+  const { storeAppTheme } = useStoredAppTheme()
 
-  const handlePressTheme = (theme: ThemeItem) => {
+  const handlePressTheme = (theme: ThemeItem | 'adaptive') => {
     if (theme === 'adaptive') {
       return
     }
     UnistylesRuntime.setTheme(theme)
+    storeAppTheme(theme)
     setStatusBarStyle(theme === 'dark' ? 'light' : 'dark')
   }
 
