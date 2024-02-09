@@ -28,6 +28,7 @@ const BottomSheet = forwardRef(function BottomSheet(props: BottomSheetProps, ref
       onClose={onDismiss}
       backdropComponent={renderBackdrop}
       handleIndicatorStyle={styles.handleIndicator}
+      backgroundStyle={styles.handleContainer}
       {...otherProps}>
       <View style={styles.container}>
         <View style={styles.titleContainer}>

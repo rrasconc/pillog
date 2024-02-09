@@ -1,4 +1,5 @@
 import { TouchableOpacity, View } from 'react-native'
+import { scale } from 'react-native-size-matters'
 import { useStyles } from 'react-native-unistyles'
 
 import { stylesheet } from './styles'
@@ -24,7 +25,7 @@ export default function PillCard({
           {dose} {doseType}
         </Text>
       </View>
-      {selected && <Icon style={styles.check} name="checkmark" />}
+      {selected && <Icon size={scale(18)} style={styles.check} name="checkmark" />}
     </TouchableOpacity>
   )
 }
