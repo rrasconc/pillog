@@ -76,7 +76,9 @@ export default function HomePage() {
         }}
       />
       <View>
-        <Text>Select the pills you want to log</Text>
+        <Text>
+          {pills.length > 0 ? 'Select the pills you want to log' : "You don't have any pills yet"}
+        </Text>
       </View>
       <FlatList
         data={pills}
@@ -93,7 +95,7 @@ export default function HomePage() {
           />
         )}
       />
-      {selectedPills.length > 0 && <PillSwiper onSwipe={handleSwipe} />}
+      {selectedPills.length > 0 && pills.length > 0 && <PillSwiper onSwipe={handleSwipe} />}
 
       <BottomSheet
         ref={bottomSheetModalRef}
