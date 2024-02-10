@@ -93,7 +93,7 @@ export default function HomePage() {
           />
         )}
       />
-      <PillSwiper onSwipe={handleSwipe} />
+      {selectedPills.length > 0 && <PillSwiper onSwipe={handleSwipe} />}
 
       <BottomSheet
         ref={bottomSheetModalRef}
@@ -114,7 +114,7 @@ export const stylesheet = createStyleSheet((theme) => ({
   container: {
     backgroundColor: theme.colors.background,
     paddingHorizontal: theme.spacing.sm,
-    paddingBottom: theme.spacing.lg * 3,
+    paddingBottom: theme.spacing.sm,
     gap: theme.spacing.sm,
     flex: 1,
   },

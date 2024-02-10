@@ -22,4 +22,10 @@ export const stylesheet = createStyleSheet((theme) => ({
   icon: {
     color: theme.colors.background,
   },
+  text: {
+    position: 'absolute',
+    left: 0,
+    right: 0,
+    alignItems: 'center',
+  },
 }))
