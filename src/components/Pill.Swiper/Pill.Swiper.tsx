@@ -68,8 +68,8 @@ export default function PillSwiper({ onSwipe }: PillSwiperProps) {
 
   return (
     <Animated.View
-      entering={ZoomInEasyDown.delay(300)}
-      exiting={ZoomOutEasyDown.delay(300)}
+      entering={ZoomInEasyDown.delay(100)}
+      exiting={ZoomOutEasyDown.delay(250)}
       onLayout={onContainerLayout}
       style={styles.container}>
       <Animated.View style={[styles.text, animatedTextStyles]}>
