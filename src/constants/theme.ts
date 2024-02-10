@@ -19,6 +19,7 @@ export const lightTheme = {
     border: '#EDEDED',
     success: '#19B7A9',
     danger: '#F90707',
+    lightPrimary: '#D1EEFB',
   },
   spacing,
 } as const
@@ -34,6 +35,7 @@ export const darkTheme = {
     border: '#333333',
     success: '#19B7A9',
     danger: '#F90707',
+    lightPrimary: '#0C465F',
   },
   spacing,
 } as const
