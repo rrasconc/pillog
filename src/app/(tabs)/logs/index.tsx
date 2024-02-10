@@ -1,4 +1,5 @@
 import { BottomSheetModal } from '@gorhom/bottom-sheet'
+import * as Haptics from 'expo-haptics'
 import { Stack } from 'expo-router'
 import { useRef } from 'react'
 import { View, FlatList, TouchableOpacity } from 'react-native'
@@ -20,6 +21,7 @@ export default function LogsPage() {
   const handlePressHeaderRight = () => bottomSheetModalRef.current?.present()
   const handleBottomSheetDismiss = () => bottomSheetModalRef.current?.close()
   const handlePressDelete = () => {
+    Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success)
     removeAllLogs()
     handleBottomSheetDismiss()
   }

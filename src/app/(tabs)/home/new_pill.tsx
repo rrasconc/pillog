@@ -1,3 +1,4 @@
+import * as Haptics from 'expo-haptics'
 import { router } from 'expo-router'
 import { View } from 'react-native'
 import { createStyleSheet, useStyles } from 'react-native-unistyles'
@@ -20,6 +21,7 @@ export default function NewPillScreen() {
   const { values, handlers } = usePillForm({
     initialValues,
     onSubmit: ({ name, dose, doseType }) => {
+      Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success)
       addPill({ name, dose: Number(dose), doseType })
       router.back()
     },

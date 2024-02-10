@@ -1,4 +1,5 @@
 import { BottomSheetModal } from '@gorhom/bottom-sheet'
+import * as Haptics from 'expo-haptics'
 import { Link, Stack } from 'expo-router'
 import { useMemo, useRef, useState } from 'react'
 import { FlatList, TouchableOpacity, View } from 'react-native'
@@ -35,11 +36,13 @@ export default function HomePage() {
   }
 
   const handleLongPressPill = (pillId: string) => {
+    Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light)
     setSelectedPillId(pillId)
     bottomSheetModalRef.current?.present()
   }
 
   const handlePressDelete = () => {
+    Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success)
     handleBottomSheetDismiss()
     setSelectedPillId((prev) => {
       removePill(prev)
@@ -50,6 +53,7 @@ export default function HomePage() {
   const handleBottomSheetDismiss = () => bottomSheetModalRef.current?.close()
 
   const handleSwipe = () => {
+    Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success)
     const pillsToLog = pills.filter((pill) => selectedPills.includes(pill._id.toString()))
 
     const logsToAdd = pillsToLog.map((pill) => ({
