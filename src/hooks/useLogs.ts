@@ -6,7 +6,9 @@ import { LogSchema } from '@/utils/models'
 
 export const useLogs = () => {
   const realm = useRealm()
-  const logs = useQuery(LogSchema)
+  const logs = useQuery(LogSchema, (logs) => {
+    return logs.sorted('datetime', true)
+  })
 
   const addLog = ({ title }: { title: string }) => {
     realm.write(() => {
