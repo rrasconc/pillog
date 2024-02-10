@@ -53,14 +53,14 @@ export default function HomePage() {
   const handleBottomSheetDismiss = () => bottomSheetModalRef.current?.close()
 
   const handleSwipe = () => {
-    Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success)
     const pillsToLog = pills.filter((pill) => selectedPills.includes(pill._id.toString()))
 
     const logsToAdd = pillsToLog.map((pill) => ({
       title: `Took ${pill.name} (${pill.dose} ${pill.doseType})`,
     }))
-
     logsToAdd.forEach(addLog)
+
+    Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success)
     setSelectedPills([])
   }
 
@@ -100,7 +100,6 @@ export default function HomePage() {
         )}
       />
       {selectedPills.length > 0 && pills.length > 0 && <PillSwiper onSwipe={handleSwipe} />}
-
       <BottomSheet
         ref={bottomSheetModalRef}
         snapPoints={['35']}
