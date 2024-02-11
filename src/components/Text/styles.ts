@@ -5,6 +5,7 @@ export const stylesheet = createStyleSheet((theme) => ({
   text: {
     color: theme.colors.secondaryText,
     fontSize: scale(14),
+    fontFamily: 'Poppins_500Medium',
   },
   primary: {
     color: theme.colors.primaryText,
