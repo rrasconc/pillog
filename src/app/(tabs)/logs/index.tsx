@@ -11,12 +11,15 @@ import { Button } from '@/components/Button'
 import { Icon } from '@/components/Icon'
 import { LogItem } from '@/components/Log.Item'
 import { Text } from '@/components/Text'
+import { DISABLED_COMPONENT_OPACITY } from '@/constants/theme'
 import { useLogs } from '@/hooks/useLogs'
 
 export default function LogsPage() {
   const { styles } = useStyles(stylesheet)
   const bottomSheetModalRef = useRef<BottomSheetModal>(null)
   const { logs, removeAllLogs } = useLogs()
+
+  const isRemoveDisabled = logs.length === 0
 
   const handlePressHeaderRight = () => bottomSheetModalRef.current?.present()
   const handleBottomSheetDismiss = () => bottomSheetModalRef.current?.close()
@@ -27,7 +30,11 @@ export default function LogsPage() {
   }
 
   const headerRight = () => (
-    <TouchableOpacity onPress={handlePressHeaderRight} testID="addBtn">
+    <TouchableOpacity
+      style={isRemoveDisabled && styles.disabled}
+      disabled={isRemoveDisabled}
+      onPress={handlePressHeaderRight}
+      testID="addBtn">
       <Icon name="trash-bin-outline" style={styles.headerIcon} />
     </TouchableOpacity>
   )
@@ -89,5 +96,8 @@ export const stylesheet = createStyleSheet((theme) => ({
   cancelBtn: {
     backgroundColor: theme.colors.background,
     padding: theme.spacing.xs,
+  },
+  disabled: {
+    opacity: DISABLED_COMPONENT_OPACITY,
   },
 }))
