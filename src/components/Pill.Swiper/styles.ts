@@ -20,7 +20,7 @@ export const stylesheet = createStyleSheet((theme) => ({
     backgroundColor: theme.colors.primary,
   },
   icon: {
-    color: theme.colors.background,
+    color: '#ffff',
   },
   text: {
     position: 'absolute',
