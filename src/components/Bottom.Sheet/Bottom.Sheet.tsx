@@ -13,12 +13,17 @@ import { Text } from '../Text'
 
 const BottomSheet = forwardRef(function BottomSheet(props: BottomSheetProps, ref: any) {
   const { onDismiss, title, children, ...otherProps } = props
-  const { styles } = useStyles(stylesheet)
+  const { styles, theme } = useStyles(stylesheet)
   const renderBackdrop = useCallback(
-    (props: BottomSheetBackdropProps) => (
-      <BottomSheetBackdrop {...props} appearsOnIndex={0} disappearsOnIndex={-1} />
+    ({ style, ...otherProps }: BottomSheetBackdropProps) => (
+      <BottomSheetBackdrop
+        style={[style, { backgroundColor: theme.colors.backdrop }]}
+        appearsOnIndex={0}
+        disappearsOnIndex={-1}
+        {...otherProps}
+      />
     ),
-    [],
+    [theme, styles],
   )
 
   return (

@@ -20,6 +20,7 @@ export const lightTheme = {
     success: '#19B7A9',
     danger: '#F90707',
     lightPrimary: '#D1EEFB',
+    backdrop: '#000000',
   },
   spacing,
 } as const
@@ -36,6 +37,7 @@ export const darkTheme = {
     success: '#19B7A9',
     danger: '#F90707',
     lightPrimary: '#0C465F',
+    backdrop: '#303030',
   },
   spacing,
 } as const
