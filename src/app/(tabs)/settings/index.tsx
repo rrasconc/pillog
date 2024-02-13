@@ -5,6 +5,7 @@ import { UnistylesRuntime, useStyles, createStyleSheet } from 'react-native-unis
 import { SettingItem } from '@/components/Setting.Item.tsx'
 import { Text } from '@/components/Text'
 import { appInfo } from '@/constants/app.info'
+import { DISABLED_COMPONENT_OPACITY } from '@/constants/theme'
 import type { SettingThemeItem, ThemeItem } from '@/constants/types'
 import { useStoredAppTheme } from '@/hooks/useAppTheme'
 
@@ -91,7 +92,7 @@ export const stylesheet = createStyleSheet((theme) => ({
     width: '100%',
     borderWidth: 0.5,
     borderColor: theme.colors.secondaryText,
-    opacity: 0.3,
+    opacity: DISABLED_COMPONENT_OPACITY,
   },
   separatorContainer: {
     alignItems: 'center',

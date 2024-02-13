@@ -41,3 +41,5 @@ export const darkTheme = {
   },
   spacing,
 } as const
+
+export const DISABLED_COMPONENT_OPACITY = 0.3
