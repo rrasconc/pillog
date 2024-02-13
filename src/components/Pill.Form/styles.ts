@@ -8,7 +8,7 @@ export const stylesheet = createStyleSheet((theme) => ({
   },
 
   btnText: {
-    color: theme.colors.background,
+    color: '#ffff',
   },
   pickerItem: {
     padding: theme.spacing.sm,
