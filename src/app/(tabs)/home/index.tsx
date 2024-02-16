@@ -9,7 +9,7 @@ import { BottomSheet } from '@/components/Bottom.Sheet'
 import { Button } from '@/components/Button'
 import { Icon } from '@/components/Icon'
 import { PillCard } from '@/components/Pill.Card'
-import { PillSwiper } from '@/components/Pill.Swiper'
+import { SlideButton } from '@/components/Slide.Button'
 import { Text } from '@/components/Text'
 import { useLogs } from '@/hooks/useLogs'
 import { usePills } from '@/hooks/usePills'
@@ -52,7 +52,7 @@ export default function HomePage() {
 
   const handleBottomSheetDismiss = () => bottomSheetModalRef.current?.close()
 
-  const handleSwipe = () => {
+  const handleSlide = () => {
     const pillsToLog = pills.filter((pill) => selectedPills.includes(pill._id.toString()))
 
     const logsToAdd = pillsToLog.map((pill) => ({
@@ -99,7 +99,7 @@ export default function HomePage() {
           />
         )}
       />
-      {selectedPills.length > 0 && pills.length > 0 && <PillSwiper onSwipe={handleSwipe} />}
+      {selectedPills.length > 0 && pills.length > 0 && <SlideButton onSlide={handleSlide} />}
       <BottomSheet
         ref={bottomSheetModalRef}
         snapPoints={['35']}
