@@ -2,8 +2,8 @@ import { verticalScale } from 'react-native-size-matters'
 import { createStyleSheet } from 'react-native-unistyles'
 
 export const stylesheet = createStyleSheet((theme) => ({
+  wrapper: { width: '100%', alignItems: 'center' },
   container: {
-    width: '100%',
     justifyContent: 'center',
     paddingHorizontal: theme.spacing.sm,
     height: verticalScale(65),
