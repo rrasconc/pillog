@@ -16,7 +16,9 @@ export default function SettingItem({ title, onPress, selected, disabled }: Sett
       <Text.Primary style={disabled && { opacity: DISABLED_COMPONENT_OPACITY }}>
         {title}
       </Text.Primary>
-      {selected && <Icon size={scale(18)} style={styles.checkmark} name="checkmark" />}
+      {selected && (
+        <Icon testID="checkmarkIcon" size={scale(18)} style={styles.checkmark} name="checkmark" />
+      )}
     </TouchableOpacity>
   )
 }
