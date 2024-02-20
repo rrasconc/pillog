@@ -1,4 +1,5 @@
 import { useQuery, useRealm } from '@realm/react'
+import * as Haptics from 'expo-haptics'
 import moment from 'moment'
 import { BSON } from 'realm'
 
@@ -21,7 +22,7 @@ export const useLogs = () => {
         datetime: moment().toDate(),
       })
     })
-
+    Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success)
     showToast(title)
   }
 
@@ -29,6 +30,7 @@ export const useLogs = () => {
     realm.write(() => {
       realm.delete(logs)
     })
+    Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success)
     showToast('All logs have been cleared.')
   }
 
