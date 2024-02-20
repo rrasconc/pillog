@@ -3,18 +3,18 @@ import { scale } from 'react-native-size-matters'
 import { useStyles } from 'react-native-unistyles'
 
 import { stylesheet } from './styles'
-import { PillCardProps } from './types'
+import { PillItemProps } from './types'
 import { Icon } from '../Icon'
 import { Text } from '../Text'
 
-export default function PillCard({
+export default function PillItem({
   name,
   dose,
   doseType,
   selected,
   onPress,
   onLongPress,
-}: PillCardProps) {
+}: PillItemProps) {
   const { styles } = useStyles(stylesheet)
 
   return (
@@ -25,7 +25,9 @@ export default function PillCard({
           {dose} {doseType}
         </Text>
       </View>
-      {selected && <Icon size={scale(18)} style={styles.check} name="checkmark" />}
+      {selected && (
+        <Icon testID="checkmarkIcon" size={scale(18)} style={styles.check} name="checkmark" />
+      )}
     </TouchableOpacity>
   )
 }

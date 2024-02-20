@@ -8,7 +8,7 @@ import { useStyles, createStyleSheet } from 'react-native-unistyles'
 import { BottomSheet } from '@/components/Bottom.Sheet'
 import { Button } from '@/components/Button'
 import { Icon } from '@/components/Icon'
-import { PillCard } from '@/components/Pill.Card'
+import { PillItem } from '@/components/Pill.Item'
 import { SlideButton } from '@/components/Slide.Button'
 import { Text } from '@/components/Text'
 import { useLogs } from '@/hooks/useLogs'
@@ -42,7 +42,6 @@ export default function HomePage() {
   }
 
   const handlePressDelete = () => {
-    Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success)
     handleBottomSheetDismiss()
     setSelectedPillId((prev) => {
       removePill(prev)
@@ -54,14 +53,12 @@ export default function HomePage() {
 
   const handleSlide = () => {
     const pillsToLog = pills.filter((pill) => selectedPills.includes(pill._id.toString()))
+    setSelectedPills([])
 
     const logsToAdd = pillsToLog.map((pill) => ({
       title: `Took ${pill.name} (${pill.dose} ${pill.doseType})`,
     }))
     logsToAdd.forEach(addLog)
-
-    Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success)
-    setSelectedPills([])
   }
 
   const headerRight = () => (
@@ -89,7 +86,7 @@ export default function HomePage() {
         keyExtractor={(item) => item._id.toString()}
         contentContainerStyle={styles.list}
         renderItem={({ item }) => (
-          <PillCard
+          <PillItem
             onLongPress={() => handleLongPressPill(item._id.toString())}
             onPress={() => handlePressPill(item._id.toString())}
             selected={selectedPills.includes(item._id.toString())}
