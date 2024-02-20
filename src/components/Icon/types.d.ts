@@ -6,4 +6,5 @@ export interface IconProps {
   size?: number
   style?: StyleProp<TextStyle>
   color?: ColorValue
+  testID?: string
 }
