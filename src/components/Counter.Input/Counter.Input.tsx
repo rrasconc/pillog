@@ -14,11 +14,11 @@ export default function CounterInput({
   const { styles } = useStyles(stylesheet)
   return (
     <View style={styles.container}>
-      <TouchableOpacity onPress={onDecrement} style={styles.button}>
+      <TouchableOpacity testID="decrementBtn" onPress={onDecrement} style={styles.button}>
         <Icon name="remove" style={styles.icon} />
       </TouchableOpacity>
       <Text.Input keyboardType="number-pad" style={styles.input} {...otherProps} />
-      <TouchableOpacity onPress={onIncrement} style={styles.button}>
+      <TouchableOpacity testID="incrementBtn" onPress={onIncrement} style={styles.button}>
         <Icon name="add" style={styles.icon} />
       </TouchableOpacity>
     </View>
