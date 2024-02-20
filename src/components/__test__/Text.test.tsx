@@ -8,7 +8,27 @@ describe('<Text />', () => {
     render(<Text>Hello world</Text>)
   })
 
-  it('Should render', () => {
+  it('Should render text', () => {
+    expect(screen.getByText('Hello world')).toBeOnTheScreen()
+  })
+})
+
+describe('<Text.Primary />', () => {
+  beforeEach(() => {
+    render(<Text.Primary>Hello world</Text.Primary>)
+  })
+
+  it('Should render text', () => {
+    expect(screen.getByText('Hello world')).toBeOnTheScreen()
+  })
+})
+
+describe('<Text.H1 />', () => {
+  beforeEach(() => {
+    render(<Text.H1>Hello world</Text.H1>)
+  })
+
+  it('Should render text', () => {
     expect(screen.getByText('Hello world')).toBeOnTheScreen()
   })
 })
