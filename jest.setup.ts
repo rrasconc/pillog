@@ -4,6 +4,10 @@ jest.mock('react-native-unistyles', () => ({
   },
   useStyles: () => ({
     styles: {},
+    theme: {
+      colors: {},
+      spacing: {},
+    },
   }),
   createStyleSheet: () => {},
 }))
