@@ -1,5 +1,4 @@
 import { BottomSheetModal } from '@gorhom/bottom-sheet'
-import * as Haptics from 'expo-haptics'
 import { Link, Stack } from 'expo-router'
 import { useMemo, useRef, useState } from 'react'
 import { FlatList, TouchableOpacity, View } from 'react-native'
@@ -13,11 +12,14 @@ import { SlideButton } from '@/components/Slide.Button'
 import { Text } from '@/components/Text'
 import { useLogs } from '@/hooks/useLogs'
 import { usePills } from '@/hooks/usePills'
+import { useToast } from '@/hooks/useToast'
+import { HapticFeedbackType, triggerHapticFeedback } from '@/utils/haptics'
 
 export default function HomePage() {
   const { styles } = useStyles(stylesheet)
   const { pills, removePill } = usePills()
   const { addLog } = useLogs()
+  const { showToast } = useToast()
 
   const [selectedPills, setSelectedPills] = useState<string[]>([])
   const [selectedPillId, setSelectedPillId] = useState<string>('')
@@ -36,7 +38,7 @@ export default function HomePage() {
   }
 
   const handleLongPressPill = (pillId: string) => {
-    Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light)
+    triggerHapticFeedback(HapticFeedbackType.light)
     setSelectedPillId(pillId)
     bottomSheetModalRef.current?.present()
   }
@@ -45,6 +47,8 @@ export default function HomePage() {
     handleBottomSheetDismiss()
     setSelectedPillId((prev) => {
       removePill(prev)
+      triggerHapticFeedback(HapticFeedbackType.success)
+      showToast(`${pills.filter((item) => item._id.toString() === prev)[0].name} has been deleted.`)
       return ''
     })
   }
@@ -59,6 +63,9 @@ export default function HomePage() {
       title: `Took ${pill.name} (${pill.dose} ${pill.doseType})`,
     }))
     logsToAdd.forEach(addLog)
+
+    triggerHapticFeedback(HapticFeedbackType.success)
+    showToast(`New ${logsToAdd.length > 1 ? 'logs' : 'log'} added`)
   }
 
   const headerRight = () => (

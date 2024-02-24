@@ -1,14 +1,10 @@
 import { useQuery, useRealm } from '@realm/react'
-import * as Haptics from 'expo-haptics'
 import { BSON } from 'realm'
-
-import { useToast } from './useToast'
 
 import { Pill } from '@/constants/types'
 import { PillSchema } from '@/utils/models'
 
 export const usePills = () => {
-  const { showToast } = useToast()
   const pills = useQuery(PillSchema)
   const realm = useRealm()
 
@@ -21,19 +17,13 @@ export const usePills = () => {
         doseType,
       })
     })
-
-    Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success)
-    showToast(`${name} has been added.`)
   }
 
   const removePill = (pillIdToDelete: string) => {
     realm.write(() => {
       const pillToDelete = pills.find((pill) => pill._id.toString() === pillIdToDelete)
       if (pillToDelete) {
-        const name = pillToDelete.name
         realm.delete(pillToDelete)
-        Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success)
-        showToast(`${name} has been deleted.`)
       }
     })
   }

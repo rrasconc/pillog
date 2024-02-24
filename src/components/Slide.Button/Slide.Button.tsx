@@ -16,6 +16,8 @@ import { useStyles } from 'react-native-unistyles'
 import { stylesheet } from './styles'
 import { Text } from '../Text'
 
+import { HapticFeedbackType, triggerHapticFeedback } from '@/utils/haptics'
+
 const BUTTON_WIDTH = verticalScale(45)
 const WINDOW_WIDTH = Dimensions.get('window').width
 
@@ -29,12 +31,16 @@ export default function SlideButton({ onSlide }: SlideButtonProps) {
   const reachedSlideThreshold = useSharedValue(false)
 
   const slideTreshold = containerWidth.value - (BUTTON_WIDTH + theme.spacing.sm * 2)
+  const triggerLightFeedback = () => {
+    triggerHapticFeedback(HapticFeedbackType.light)
+  }
 
   const pan = Gesture.Pan()
 
     .onChange((event) => {
       if (event.translationX >= slideTreshold) {
         reachedSlideThreshold.value = true
+        runOnJS(triggerLightFeedback)()
         return
       }
 

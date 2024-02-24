@@ -1,5 +1,4 @@
 import { BottomSheetModal } from '@gorhom/bottom-sheet'
-import * as Haptics from 'expo-haptics'
 import { Stack } from 'expo-router'
 import { useRef } from 'react'
 import { View, FlatList, TouchableOpacity } from 'react-native'
@@ -13,19 +12,28 @@ import { LogItem } from '@/components/Log.Item'
 import { Text } from '@/components/Text'
 import { DISABLED_COMPONENT_OPACITY } from '@/constants/theme'
 import { useLogs } from '@/hooks/useLogs'
+import { useToast } from '@/hooks/useToast'
+import { HapticFeedbackType, triggerHapticFeedback } from '@/utils/haptics'
 
 export default function LogsPage() {
   const { styles } = useStyles(stylesheet)
   const bottomSheetModalRef = useRef<BottomSheetModal>(null)
   const { logs, removeAllLogs } = useLogs()
+  const { showToast } = useToast()
 
   const isRemoveDisabled = logs.length === 0
 
-  const handlePressHeaderRight = () => bottomSheetModalRef.current?.present()
+  const handlePressHeaderRight = () => {
+    triggerHapticFeedback(HapticFeedbackType.light)
+    bottomSheetModalRef.current?.present()
+  }
+
   const handleBottomSheetDismiss = () => bottomSheetModalRef.current?.close()
+
   const handlePressDelete = () => {
-    Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success)
     removeAllLogs()
+    triggerHapticFeedback(HapticFeedbackType.success)
+    showToast('All logs have been cleared.')
     handleBottomSheetDismiss()
   }
 

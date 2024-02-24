@@ -6,6 +6,8 @@ import { PillForm } from '@/components/Pill.Form'
 import { PillFormValues } from '@/constants/types'
 import { usePillForm } from '@/hooks/usePillForm'
 import { usePills } from '@/hooks/usePills'
+import { useToast } from '@/hooks/useToast'
+import { HapticFeedbackType, triggerHapticFeedback } from '@/utils/haptics'
 
 const initialValues: PillFormValues = {
   name: '',
@@ -16,11 +18,15 @@ const initialValues: PillFormValues = {
 export default function NewPillScreen() {
   const { styles } = useStyles(stylesheet)
   const { addPill } = usePills()
+  const { showToast } = useToast()
 
   const { values, handlers } = usePillForm({
     initialValues,
     onSubmit: ({ name, dose, doseType }) => {
       addPill({ name, dose: Number(dose), doseType })
+
+      triggerHapticFeedback(HapticFeedbackType.success)
+      showToast(`${name} has been added.`)
       router.back()
     },
   })
