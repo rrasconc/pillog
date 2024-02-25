@@ -5,18 +5,18 @@ import { FlatList, TouchableOpacity, View } from 'react-native'
 import { useStyles, createStyleSheet } from 'react-native-unistyles'
 
 import { BottomSheet } from '@/components/Bottom.Sheet'
-import { Button } from '@/components/Button'
 import { Icon } from '@/components/Icon'
 import { PillItem } from '@/components/Pill.Item'
 import { SlideButton } from '@/components/Slide.Button'
 import { Text } from '@/components/Text'
+import { TouchableIconItem } from '@/components/Touchable.Icon.Item'
 import { useLogs } from '@/hooks/useLogs'
 import { usePills } from '@/hooks/usePills'
 import { useToast } from '@/hooks/useToast'
 import { HapticFeedbackType, triggerHapticFeedback } from '@/utils/haptics'
 
 export default function HomePage() {
-  const { styles } = useStyles(stylesheet)
+  const { styles, theme } = useStyles(stylesheet)
   const { pills, removePill } = usePills()
   const { addLog } = useLogs()
   const { showToast } = useToast()
@@ -44,11 +44,12 @@ export default function HomePage() {
   }
 
   const handlePressDelete = () => {
+    const pillName = pills.filter((item) => item._id.toString() === selectedPillId)[0].name
     handleBottomSheetDismiss()
     setSelectedPillId((prev) => {
       removePill(prev)
       triggerHapticFeedback(HapticFeedbackType.success)
-      showToast(`${pills.filter((item) => item._id.toString() === prev)[0].name} has been deleted.`)
+      showToast(`${pillName} has been deleted.`)
       return ''
     })
   }
@@ -111,9 +112,12 @@ export default function HomePage() {
           selectedPill ? `${selectedPill.name} (${selectedPill.dose} ${selectedPill.doseType})` : ''
         }
         onDismiss={handleBottomSheetDismiss}>
-        <Button.Secondary onPress={handlePressDelete}>
-          <Text style={styles.deleteBtn}>Delete</Text>
-        </Button.Secondary>
+        <TouchableIconItem
+          onPress={handlePressDelete}
+          color={theme.colors.danger}
+          text="Delete pill"
+          icon="trash-outline"
+        />
       </BottomSheet>
     </View>
   )
