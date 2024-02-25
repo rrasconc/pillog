@@ -21,6 +21,7 @@ export const lightTheme = {
     danger: '#F90707',
     lightPrimary: '#C8D0ED',
     backdrop: '#000000',
+    placeholder: '#CBD1E0',
   },
   spacing,
 } as const
@@ -38,6 +39,7 @@ export const darkTheme = {
     danger: '#F90707',
     lightPrimary: '#0D173D',
     backdrop: '#303030',
+    placeholder: '#4B4E56',
   },
   spacing,
 } as const

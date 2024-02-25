@@ -38,7 +38,7 @@ function Input({ style: styleProp, ...otherProps }: TextInputProps) {
   return (
     <TextInput
       selectionColor={theme.colors.transparentPrimary}
-      placeholderTextColor={theme.colors.secondaryText}
+      placeholderTextColor={theme.colors.placeholder}
       style={mergedStyles}
       {...otherProps}
     />

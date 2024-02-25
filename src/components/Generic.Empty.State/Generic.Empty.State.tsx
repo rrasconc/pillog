@@ -11,8 +11,8 @@ export default function GenericEmptyState({ message }: GenericEmptyStateProps) {
   const { theme, styles } = useStyles(stylesheet)
   return (
     <View style={styles.container}>
-      <Icon name="file-tray" size={scale(46)} color={theme.colors.border} />
-      <Text style={{ color: theme.colors.border }}>{message}</Text>
+      <Icon name="file-tray" size={scale(46)} color={theme.colors.placeholder} />
+      <Text style={{ color: theme.colors.placeholder }}>{message}</Text>
     </View>
   )
 }
