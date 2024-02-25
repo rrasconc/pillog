@@ -5,6 +5,7 @@ import { FlatList, TouchableOpacity, View } from 'react-native'
 import { useStyles, createStyleSheet } from 'react-native-unistyles'
 
 import { BottomSheet } from '@/components/Bottom.Sheet'
+import { GenericEmptyState } from '@/components/Generic.Empty.State'
 import { Icon } from '@/components/Icon'
 import { PillItem } from '@/components/Pill.Item'
 import { SlideButton } from '@/components/Slide.Button'
@@ -84,15 +85,12 @@ export default function HomePage() {
           headerRight,
         }}
       />
-      <View>
-        <Text>
-          {pills.length > 0 ? 'Select the pills you want to log' : "You don't have any pills yet"}
-        </Text>
-      </View>
+      {pills.length > 0 && <Text>Select the pills you want to log</Text>}
       <FlatList
         data={pills}
+        ListEmptyComponent={<GenericEmptyState message="You haven't added any pills yet" />}
         keyExtractor={(item) => item._id.toString()}
-        contentContainerStyle={styles.list}
+        contentContainerStyle={[styles.list, pills.length === 0 && { flexGrow: 1 }]}
         renderItem={({ item }) => (
           <PillItem
             onLongPress={() => handleLongPressPill(item._id.toString())}
@@ -127,7 +125,6 @@ export const stylesheet = createStyleSheet((theme) => ({
   container: {
     backgroundColor: theme.colors.background,
     paddingHorizontal: theme.spacing.sm,
-    paddingBottom: theme.spacing.sm,
     gap: theme.spacing.sm,
     flex: 1,
   },

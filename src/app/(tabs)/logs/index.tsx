@@ -14,6 +14,7 @@ import { DISABLED_COMPONENT_OPACITY } from '@/constants/theme'
 import { useLogs } from '@/hooks/useLogs'
 import { useToast } from '@/hooks/useToast'
 import { HapticFeedbackType, triggerHapticFeedback } from '@/utils/haptics'
+import { GenericEmptyState } from '@/components/Generic.Empty.State'
 
 export default function LogsPage() {
   const { styles } = useStyles(stylesheet)
@@ -61,7 +62,7 @@ export default function LogsPage() {
         keyExtractor={(item) => item._id.toString()}
         data={logs}
         renderItem={({ item }) => <LogItem title={item.title} datetime={item.datetime} />}
-        ListEmptyComponent={<Text>You don't have any logs yet</Text>}
+        ListEmptyComponent={<GenericEmptyState message="You don't have any logs yet" />}
       />
 
       <BottomSheet
@@ -93,6 +94,7 @@ export const stylesheet = createStyleSheet((theme) => ({
   },
   contentContainer: {
     gap: theme.spacing.sm,
+    flexGrow: 1,
   },
   headerIcon: {
     color: theme.colors.danger,

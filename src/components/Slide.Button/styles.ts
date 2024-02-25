@@ -10,6 +10,7 @@ export const stylesheet = createStyleSheet((theme) => ({
     borderRadius: verticalScale(40),
     borderWidth: 1,
     borderColor: theme.colors.border,
+    marginBottom: theme.spacing.sm,
   },
   drag: {
     height: verticalScale(45),
