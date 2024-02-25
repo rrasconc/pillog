@@ -1,3 +1,4 @@
+import Ionicons from '@expo/vector-icons/Ionicons'
 import { darkTheme, lightTheme } from './theme'
 
 export type DoseType = 'mg' | 'ml'
@@ -26,3 +27,5 @@ interface SettingThemeItem {
   theme: ThemeItem | 'adaptive'
   disabled?: boolean
 }
+
+export type IconName = keyof typeof Ionicons.glyphMap
