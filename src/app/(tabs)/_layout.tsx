@@ -25,7 +25,7 @@ export default function TabsLayout() {
           tabBarShowLabel: false,
           tabBarIcon: ({ focused }) => (
             <Icon
-              name="home-outline"
+              name={focused ? 'home' : 'home-outline'}
               size={scale(22)}
               style={{
                 color: focused ? theme.colors.primary : theme.colors.secondaryText,
@@ -40,7 +40,7 @@ export default function TabsLayout() {
           tabBarShowLabel: false,
           tabBarIcon: ({ focused }) => (
             <Icon
-              name="time-outline"
+              name={focused ? 'time' : 'time-outline'}
               style={{ color: focused ? theme.colors.primary : theme.colors.secondaryText }}
             />
           ),
@@ -52,7 +52,7 @@ export default function TabsLayout() {
           tabBarShowLabel: false,
           tabBarIcon: ({ focused }) => (
             <Icon
-              name="settings-outline"
+              name={focused ? 'settings' : 'settings-outline'}
               size={scale(22)}
               style={{ color: focused ? theme.colors.primary : theme.colors.secondaryText }}
             />
