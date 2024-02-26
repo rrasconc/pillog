@@ -7,6 +7,7 @@ import { useStyles, createStyleSheet } from 'react-native-unistyles'
 
 import { BottomSheet } from '@/components/Bottom.Sheet'
 import { Button } from '@/components/Button'
+import { GenericEmptyState } from '@/components/Generic.Empty.State'
 import { Icon } from '@/components/Icon'
 import { LogItem } from '@/components/Log.Item'
 import { Text } from '@/components/Text'
@@ -14,7 +15,6 @@ import { DISABLED_COMPONENT_OPACITY } from '@/constants/theme'
 import { useLogs } from '@/hooks/useLogs'
 import { useToast } from '@/hooks/useToast'
 import { HapticFeedbackType, triggerHapticFeedback } from '@/utils/haptics'
-import { GenericEmptyState } from '@/components/Generic.Empty.State'
 
 export default function LogsPage() {
   const { styles } = useStyles(stylesheet)
