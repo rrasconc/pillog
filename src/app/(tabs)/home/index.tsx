@@ -3,6 +3,7 @@ import { Link, Stack } from 'expo-router'
 import { useMemo, useRef, useState } from 'react'
 import { FlatList, TouchableOpacity, View } from 'react-native'
 import { useStyles, createStyleSheet } from 'react-native-unistyles'
+import { BSON } from 'realm'
 
 import { BottomSheet } from '@/components/Bottom.Sheet'
 import { GenericEmptyState } from '@/components/Generic.Empty.State'
@@ -18,47 +19,47 @@ import { HapticFeedbackType, triggerHapticFeedback } from '@/utils/haptics'
 
 export default function HomePage() {
   const { styles, theme } = useStyles(stylesheet)
-  const { pills, removePill } = usePills()
+  const { pills, removePill, getPillById, queryPillsById } = usePills()
   const { addLog } = useLogs()
   const { showToast } = useToast()
 
-  const [selectedPills, setSelectedPills] = useState<string[]>([])
-  const [selectedPillId, setSelectedPillId] = useState<string>('')
+  const [selectedPills, setSelectedPills] = useState<BSON.UUID[]>([])
+  const [selectedPillId, setSelectedPillId] = useState<BSON.UUID | null>(null)
   const bottomSheetModalRef = useRef<BottomSheetModal>(null)
 
-  const selectedPill = useMemo(
-    () => pills.find((item) => item._id.toString() === selectedPillId),
-    [pills, selectedPillId],
-  )
+  const selectedPill = useMemo(() => getPillById(selectedPillId), [selectedPillId])
 
-  const handlePressPill = (pressedPillId: string) => {
-    if (selectedPills.includes(pressedPillId)) {
-      return setSelectedPills(selectedPills.filter((id) => id !== pressedPillId))
+  const handlePressPill = (pressedPillId: BSON.UUID) => {
+    if (selectedPills.some((id) => id.toString() === pressedPillId.toString())) {
+      setSelectedPills(selectedPills.filter((id) => id.toString() !== pressedPillId.toString()))
+    } else {
+      setSelectedPills([...selectedPills, pressedPillId])
     }
-    return setSelectedPills([...selectedPills, pressedPillId])
   }
 
-  const handleLongPressPill = (pillId: string) => {
+  const handleLongPressPill = (pillId: BSON.UUID) => {
     triggerHapticFeedback(HapticFeedbackType.light)
     setSelectedPillId(pillId)
     bottomSheetModalRef.current?.present()
   }
 
   const handlePressDelete = () => {
-    const pillName = pills.filter((item) => item._id.toString() === selectedPillId)[0].name
     handleBottomSheetDismiss()
     setSelectedPillId((prev) => {
-      removePill(prev)
-      triggerHapticFeedback(HapticFeedbackType.success)
-      showToast(`${pillName} has been deleted.`)
-      return ''
+      if (prev) {
+        const pillName = getPillById(prev)?.name
+        removePill(prev)
+        triggerHapticFeedback(HapticFeedbackType.success)
+        showToast(`${pillName} has been deleted.`)
+      }
+      return null
     })
   }
 
   const handleBottomSheetDismiss = () => bottomSheetModalRef.current?.close()
 
   const handleSlide = () => {
-    const pillsToLog = pills.filter((pill) => selectedPills.includes(pill._id.toString()))
+    const pillsToLog = queryPillsById(selectedPills)
     setSelectedPills([])
 
     const logsToAdd = pillsToLog.map((pill) => ({
@@ -93,9 +94,9 @@ export default function HomePage() {
         contentContainerStyle={[styles.list, pills.length === 0 && { flexGrow: 1 }]}
         renderItem={({ item }) => (
           <PillItem
-            onLongPress={() => handleLongPressPill(item._id.toString())}
-            onPress={() => handlePressPill(item._id.toString())}
-            selected={selectedPills.includes(item._id.toString())}
+            onLongPress={() => handleLongPressPill(item._id)}
+            onPress={() => handlePressPill(item._id)}
+            selected={selectedPills.some((id) => id.toString() === item._id.toString())}
             name={item.name}
             dose={item.dose}
             doseType={item.doseType}
