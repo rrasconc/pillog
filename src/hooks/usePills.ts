@@ -8,6 +8,19 @@ export const usePills = () => {
   const pills = useQuery(PillSchema)
   const realm = useRealm()
 
+  const getPillById = (id: BSON.UUID | null) => {
+    if (!id) {
+      return null
+    }
+    const pill = realm.objectForPrimaryKey(PillSchema, id)
+    return pill
+  }
+
+  const queryPillsById = (ids: BSON.UUID[]) => {
+    const pills = realm.objects(PillSchema).filtered(`_id IN $0`, ids)
+    return pills
+  }
+
   const addPill = ({ name, dose, doseType }: Pill) => {
     realm.write(() => {
       realm.create(PillSchema, {
@@ -19,11 +32,11 @@ export const usePills = () => {
     })
   }
 
-  const removePill = (pillIdToDelete: string) => {
+  const removePill = (pillIdToDelete: BSON.UUID) => {
+    const pill = realm.objectForPrimaryKey(PillSchema, pillIdToDelete)
     realm.write(() => {
-      const pillToDelete = pills.find((pill) => pill._id.toString() === pillIdToDelete)
-      if (pillToDelete) {
-        realm.delete(pillToDelete)
+      if (pill) {
+        realm.delete(pill)
       }
     })
   }
@@ -32,10 +45,10 @@ export const usePills = () => {
     pillIdToUpdate,
     updatedPill,
   }: {
-    pillIdToUpdate: string
+    pillIdToUpdate: BSON.UUID
     updatedPill: Pill
   }) => {
-    const pillToUpdate = pills.find((pill) => pill._id.toString() === pillIdToUpdate)
+    const pillToUpdate = getPillById(pillIdToUpdate)
 
     if (pillToUpdate) {
       realm.write(() => {
@@ -45,5 +58,5 @@ export const usePills = () => {
       })
     }
   }
-  return { pills, addPill, removePill, updatePill }
+  return { pills, getPillById, queryPillsById, addPill, removePill, updatePill }
 }
