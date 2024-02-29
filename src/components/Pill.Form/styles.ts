@@ -4,11 +4,10 @@ import { createStyleSheet } from 'react-native-unistyles'
 export const stylesheet = createStyleSheet((theme) => ({
   container: {
     gap: theme.spacing.sm,
-    flex: 1,
+    flexGrow: 1,
   },
-
   btnText: {
-    color: '#ffff',
+    color: theme.colors.primary,
   },
   pickerItem: {
     padding: theme.spacing.sm,

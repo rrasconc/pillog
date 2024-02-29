@@ -37,7 +37,8 @@ function Input({ style: styleProp, ...otherProps }: TextInputProps) {
 
   return (
     <TextInput
-      selectionColor={theme.colors.transparentPrimary}
+      selectionColor={theme.colors.lightPrimary}
+      cursorColor={theme.colors.primary}
       placeholderTextColor={theme.colors.placeholder}
       style={mergedStyles}
       {...otherProps}
