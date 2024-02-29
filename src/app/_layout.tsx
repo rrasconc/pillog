@@ -6,7 +6,9 @@ import { Slot } from 'expo-router'
 import * as SplashScreen from 'expo-splash-screen'
 import { StatusBar } from 'expo-status-bar'
 import { ReactNode, useEffect } from 'react'
+import { Platform } from 'react-native'
 import { GestureHandlerRootView } from 'react-native-gesture-handler'
+import { FullWindowOverlay as DefaultFullWindowOverlay } from 'react-native-screens'
 import { UnistylesRuntime } from 'react-native-unistyles'
 
 import { Toast } from '@/components/Toast'
@@ -54,10 +56,19 @@ function RootLayoutNav() {
   UnistylesRuntime.setTheme(storedTheme)
 
   return (
-    <AppProviders>
-      <StatusBar style="auto" />
-      <Toast />
-      <Slot />
-    </AppProviders>
+    <FullWindowOverlay>
+      <AppProviders>
+        <StatusBar style="auto" />
+        <Slot />
+        <Toast />
+      </AppProviders>
+    </FullWindowOverlay>
   )
+}
+
+function FullWindowOverlay({ children }: { children: ReactNode }) {
+  if (Platform.OS === 'ios') {
+    return <DefaultFullWindowOverlay>{children}</DefaultFullWindowOverlay>
+  }
+  return <>{children}</>
 }
