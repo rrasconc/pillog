@@ -22,7 +22,7 @@ export default function Layout() {
         name="new_pill"
         options={{
           title: 'Add a pill',
-          presentation: 'modal',
+          headerBackTitleVisible: false,
         }}
       />
     </Stack>
