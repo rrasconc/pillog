@@ -1,0 +1,1 @@
+interface PillEmptyIconProps extends SvgProps {}
