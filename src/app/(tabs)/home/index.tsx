@@ -5,9 +5,10 @@ import { FlatList, TouchableOpacity, View } from 'react-native'
 import { useStyles, createStyleSheet } from 'react-native-unistyles'
 import { BSON } from 'realm'
 
+import { BaseEmptyState } from '@/components/Base.Empty.State'
 import { BottomSheet } from '@/components/Bottom.Sheet'
-import { GenericEmptyState } from '@/components/Generic.Empty.State'
 import { Icon } from '@/components/Icon'
+import { PillEmptyIcon } from '@/components/Pill.Empty.Icon'
 import { PillItem } from '@/components/Pill.Item'
 import { SlideButton } from '@/components/Slide.Button'
 import { Text } from '@/components/Text'
@@ -89,7 +90,12 @@ export default function HomePage() {
       {pills.length > 0 && <Text>Select the pills you want to log</Text>}
       <FlatList
         data={pills}
-        ListEmptyComponent={<GenericEmptyState message="You haven't added any pills yet" />}
+        ListEmptyComponent={
+          <BaseEmptyState
+            iconComponent={<PillEmptyIcon />}
+            message="You don't have any pills yet"
+          />
+        }
         keyExtractor={(item) => item._id.toString()}
         contentContainerStyle={[styles.list, pills.length === 0 && { flexGrow: 1 }]}
         renderItem={({ item }) => (
