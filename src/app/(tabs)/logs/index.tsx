@@ -5,10 +5,11 @@ import { View, FlatList, TouchableOpacity } from 'react-native'
 import { scale } from 'react-native-size-matters'
 import { useStyles, createStyleSheet } from 'react-native-unistyles'
 
+import { BaseEmptyState } from '@/components/Base.Empty.State'
 import { BottomSheet } from '@/components/Bottom.Sheet'
 import { Button } from '@/components/Button'
-import { GenericEmptyState } from '@/components/Generic.Empty.State'
 import { Icon } from '@/components/Icon'
+import { LogEmptyIcon } from '@/components/Log.Empty.Icon'
 import { LogItem } from '@/components/Log.Item'
 import { Text } from '@/components/Text'
 import { DISABLED_COMPONENT_OPACITY } from '@/constants/theme'
@@ -62,7 +63,9 @@ export default function LogsPage() {
         keyExtractor={(item) => item._id.toString()}
         data={logs}
         renderItem={({ item }) => <LogItem title={item.title} datetime={item.datetime} />}
-        ListEmptyComponent={<GenericEmptyState message="You don't have any logs yet" />}
+        ListEmptyComponent={
+          <BaseEmptyState iconComponent={<LogEmptyIcon />} message="You don't have any logs yet" />
+        }
       />
 
       <BottomSheet
